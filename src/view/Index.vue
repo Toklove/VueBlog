@@ -18,24 +18,24 @@
 <script setup>
 const list = [
   {
-    name : '文章',
+    name : '主页',
     icon : 'iconfont icon-list',
     href : 'home'
   },
   {
     name : '自言',
     icon : 'iconfont icon-card',
-    href : '#'
+    href : 'home'
   },
   {
     name : '关于',
     icon : 'iconfont icon-about',
-    href : '#'
+    href : 'home'
   },
   {
     name : 'GitHub',
     icon : 'iconfont icon-github',
-    href : '#'
+    href : 'GitHub'
   },
 ]
 </script>

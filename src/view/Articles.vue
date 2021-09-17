@@ -23,18 +23,16 @@
     </div>
     <div class="container">
       <nav class="flex container suggested">
-        <a rel="prev" href="#" title="Previous post (older)">
+        <a rel="prev" href="#/home" title="Previous post (older)">
           <span>Previous</span>
         </a>
-        <a rel="next" href="#" title="Next post (newer)">
+        <a rel="next" href="#/home" title="Next post (newer)">
           <span>Next</span>
         </a>
       </nav>
     </div>
     <div class="container">
-      <div class="disqus-container">
-        <div id="disqus_thread">
-        </div>
+      <div style="text-align: center">
         评论模块(在开发中啦)
       </div>
     </div>
