@@ -20,24 +20,14 @@
           </div>
         </header>
       </article>
-      <n-skeleton v-if="skeleton" height="40px" width="113vh" :sharp="false" style="margin: .8rem 0"/>
-      <n-skeleton v-if="skeleton" height="40px" width="113vh" :sharp="false" style="margin: .8rem 0"/>
-      <n-skeleton v-if="skeleton" height="40px" width="113vh" :sharp="false" style="margin: .8rem 0"/>
+      <n-skeleton v-if="skeleton" height="40px" width="90%" :sharp="false" style="margin: .8rem 0"/>
+      <n-skeleton v-if="skeleton" height="40px" width="90%" :sharp="false" style="margin: .8rem 0"/>
+      <n-skeleton v-if="skeleton" height="40px" width="90%" :sharp="false" style="margin: .8rem 0"/>
       <div v-else class="article-post" v-html="ArticlesConfig.content">
       </div>
     </div>
     <div class="container">
-      <nav class="flex container suggested">
-        <a rel="prev" href="#/home" title="Previous post (older)">
-          <span>Previous</span>
-        </a>
-        <a rel="next" href="#/home" title="Next post (newer)">
-          <span>Next</span>
-        </a>
-      </nav>
-    </div>
-    <div class="container">
-      <div style="text-align: center" id="comments">
+      <div id="comments">
       </div>
     </div>
   </main>
@@ -45,7 +35,7 @@
 </template>
 
 <script>
-import {ref,onMounted} from "vue";
+import {ref, onMounted} from "vue";
 import router from "../router";
 import Header from "../layout/Header.vue";
 import Footer from "../layout/Footer.vue";
@@ -60,6 +50,7 @@ export default {
   name: "Archives",
   props: ['id'],
   components: {Header,Footer,NSkeleton},
+
   setup(props) {
     const skeleton = ref(true)
     const ArticlesConfig = ref({})

@@ -18,9 +18,9 @@
           <router-link class="section-button" to="articles">View all</router-link>
         </h2>
         <div class="posts">
-          <n-skeleton v-if="skeleton" height="40px" width="116vh" :sharp="false" style="margin: .8rem 0"/>
-          <n-skeleton v-if="skeleton" height="40px" width="116vh" :sharp="false" style="margin: .8rem 0"/>
-          <n-skeleton v-if="skeleton" height="40px" width="116vh" :sharp="false" style="margin: .8rem 0"/>
+          <n-skeleton v-if="skeleton" height="40px" width="90%" :sharp="false" style="margin: .8rem 0"/>
+          <n-skeleton v-if="skeleton" height="40px" width="90%" :sharp="false" style="margin: .8rem 0"/>
+          <n-skeleton v-if="skeleton" height="40px" width="90%" :sharp="false" style="margin: .8rem 0"/>
           <div class="post animate__animated animate__fadeIn" v-for="item in postList" :key="item.id">
             <router-link :to='`/articles/${item.id}`'>
               <div class="post-row">
