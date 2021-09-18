@@ -41,10 +41,12 @@ import Header from "../layout/Header.vue";
 import Footer from "../layout/Footer.vue";
 import {get} from "../config/request";
 import {exactTime} from "../config/utils";
-import markdown from 'markdown'
+import marked from 'marked'
 import 'gitalk/dist/gitalk.css'
 import Gitalk from 'gitalk'
 import {NSkeleton} from "naive-ui";
+import hljs from "highlight.js";
+import 'highlight.js/styles/nord.css'
 
 export default {
   name: "Archives",
@@ -52,6 +54,21 @@ export default {
   components: {Header,Footer,NSkeleton},
 
   setup(props) {
+    let rendererMD = new marked.Renderer();
+    marked.setOptions({
+      renderer: rendererMD,
+      highlight: function (code) {
+        return hljs.highlightAuto(code).value;
+      },
+      gfm: true, //默认为true。 允许 Git Hub标准的markdown.
+      tables: true, //默认为true。 允许支持表格语法。该选项要求 gfm 为true。
+      breaks: true, //默认为false。 允许回车换行。该选项要求 gfm 为true。
+      pedantic: false, //默认为false。 尽可能地兼容 markdown.pl的晦涩部分。不纠正原始模型任何的不良行为和错误。
+      sanitize: true, //对输出进行过滤（清理）
+      smartLists: true,
+      smartypants: true, //使用更为时髦的标点，比如在引用语法中加入破折号。
+      langPrefix:"hljs language-"
+    });
     const skeleton = ref(true)
     const ArticlesConfig = ref({})
     const commentOptions = new Gitalk({
@@ -73,7 +90,7 @@ export default {
                 'title': data.title,
                 'time' : exactTime(data.createTime),
                 'visits' : `Visits : ${data.visits} | `,
-                'content' : markdown.markdown.toHTML(result.data.originalContent),
+                'content' : marked(result.data.originalContent),
               }
               skeleton.value = false
             } else {
@@ -106,6 +123,9 @@ export default {
   }
 }
 .gt-container .gt-avatar img {
+  border-radius: 5px;
+}
+pre {
   border-radius: 5px;
 }
 </style>
