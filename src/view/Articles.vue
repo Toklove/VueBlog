@@ -6,9 +6,11 @@
         <header class="article-header">
           <div class="thumb">
             <div>
-              <h1>{{ ArticlesConfig.title }}</h1>
+              <n-skeleton v-if="skeleton" height="40px" width="60vh" :sharp="false"/>
+              <h1 v-else>{{ ArticlesConfig.title }}</h1>
               <div class="post-meta">
-                <div>
+                <n-skeleton v-if="skeleton" height="20px" width="40%" :sharp="false"/>
+                <div v-else>
                   {{ ArticlesConfig.visits }}<time>{{ ArticlesConfig.time }}</time>
                 </div>
                 <div class="tags">
@@ -18,7 +20,10 @@
           </div>
         </header>
       </article>
-      <div class="article-post" v-html="ArticlesConfig.content">
+      <n-skeleton v-if="skeleton" height="40px" width="113vh" :sharp="false" style="margin: .8rem 0"/>
+      <n-skeleton v-if="skeleton" height="40px" width="113vh" :sharp="false" style="margin: .8rem 0"/>
+      <n-skeleton v-if="skeleton" height="40px" width="113vh" :sharp="false" style="margin: .8rem 0"/>
+      <div v-else class="article-post" v-html="ArticlesConfig.content">
       </div>
     </div>
     <div class="container">
@@ -49,13 +54,14 @@ import {exactTime} from "../config/utils";
 import markdown from 'markdown'
 import 'gitalk/dist/gitalk.css'
 import Gitalk from 'gitalk'
-
+import {NSkeleton} from "naive-ui";
 
 export default {
   name: "Archives",
   props: ['id'],
-  components: {Header,Footer},
+  components: {Header,Footer,NSkeleton},
   setup(props) {
+    const skeleton = ref(true)
     const ArticlesConfig = ref({})
     const commentOptions = new Gitalk({
       clientID: '31de3aba975fab6c41f1',
@@ -78,6 +84,7 @@ export default {
                 'visits' : `Visits : ${data.visits} | `,
                 'content' : markdown.markdown.toHTML(result.data.originalContent),
               }
+              skeleton.value = false
             } else {
               router.push({path: '/404'})
             }
@@ -92,7 +99,7 @@ export default {
       commentOptions.render('comments')
     })
     return {
-      ArticlesConfig
+      ArticlesConfig,skeleton
     }
   }
 }

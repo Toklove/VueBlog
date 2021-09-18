@@ -18,6 +18,9 @@
           <router-link class="section-button" to="articles">View all</router-link>
         </h2>
         <div class="posts">
+          <n-skeleton v-if="skeleton" height="40px" width="116vh" :sharp="false" style="margin: .8rem 0"/>
+          <n-skeleton v-if="skeleton" height="40px" width="116vh" :sharp="false" style="margin: .8rem 0"/>
+          <n-skeleton v-if="skeleton" height="40px" width="116vh" :sharp="false" style="margin: .8rem 0"/>
           <div class="post animate__animated animate__fadeIn" v-for="item in postList" :key="item.id">
             <router-link :to='`/articles/${item.id}`'>
               <div class="post-row">
@@ -39,7 +42,10 @@ import Header from "../layout/Header.vue";
 import Footer from "../layout/Footer.vue";
 import {get} from '../config/request'
 import { getTime } from "../config/utils";
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
+import {NSkeleton} from "naive-ui";
+
+const skeleton = ref(true)
 const postList = reactive([])
 const getPosts = ( async () => {
   await get('/content/posts').then((result) => {
@@ -53,6 +59,7 @@ const getPosts = ( async () => {
           'time' : getTime(obj.createTime),
         })
       }
+      skeleton.value = false
     }
   })
 })
