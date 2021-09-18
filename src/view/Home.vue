@@ -39,7 +39,7 @@ import Header from "../layout/Header.vue";
 import Footer from "../layout/Footer.vue";
 import {get} from '../config/request'
 import { getTime } from "../config/utils";
-import {reactive} from "vue";
+import {onMounted, reactive} from "vue";
 const postList = reactive([])
 const getPosts = ( async () => {
   await get('/content/posts').then((result) => {
@@ -56,5 +56,7 @@ const getPosts = ( async () => {
     }
   })
 })
-getPosts()
+onMounted(() => {
+  getPosts()
+})
 </script>

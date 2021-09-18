@@ -32,8 +32,7 @@
       </nav>
     </div>
     <div class="container">
-      <div style="text-align: center">
-        评论模块(在开发中啦)
+      <div style="text-align: center" id="comments">
       </div>
     </div>
   </main>
@@ -41,13 +40,16 @@
 </template>
 
 <script>
-import {ref} from "vue";
+import {ref,onMounted} from "vue";
 import router from "../router";
 import Header from "../layout/Header.vue";
 import Footer from "../layout/Footer.vue";
 import {get} from "../config/request";
 import {exactTime} from "../config/utils";
 import markdown from 'markdown'
+import 'gitalk/dist/gitalk.css'
+import Gitalk from 'gitalk'
+
 
 export default {
   name: "Archives",
@@ -55,6 +57,16 @@ export default {
   components: {Header,Footer},
   setup(props) {
     const ArticlesConfig = ref({})
+    const commentOptions = new Gitalk({
+      clientID: '31de3aba975fab6c41f1',
+      clientSecret: 'b186b5c2dca2759a4f83051a34c7b485855ff0af',
+      owner: 'Toklove',
+      repo: 'Blog',
+      admin:  'Toklove',
+      id: props.id,      // Ensure uniqueness and length less than 50
+      distractionFreeMode: true  // Facebook-like distraction free mode
+
+    })
     const getArticles = (async () => {
       await get('/content/posts/' + `${props.id}`)
           .then((result) => {
@@ -75,7 +87,10 @@ export default {
             router.push({path: '/404'})
           } )
     })
-    getArticles()
+    onMounted(() => {
+      getArticles()
+      commentOptions.render('comments')
+    })
     return {
       ArticlesConfig
     }
@@ -91,5 +106,8 @@ export default {
     margin-bottom: 2rem;
     box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.08), 0 3px 6px 0 rgba(0, 0, 0, 0.06), 0 5px 12px 4px rgba(0, 0, 0, 0.04);
   }
+}
+.gt-container .gt-avatar img {
+  border-radius: 5px;
 }
 </style>
